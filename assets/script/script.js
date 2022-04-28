@@ -1,5 +1,7 @@
+// Récupérer les éléments du DOM
 const items = document.getElementsByClassName('grid-item');
 const itemsArray = Array.from(items);
+
 
 const EMPLACEMENT = [
 	"", "", "",
@@ -65,17 +67,17 @@ function chooseCase(id) {
 	
 	const currentCell = document.getElementById(id);
 	const currentItemIdx = getCurrentItemsIndex(currentCell);
-	if (gameBoard[currentItemIdx] !== '' && !haveWinner) {
+	if (EMPLACEMENT[currentItemIdx] !== '' && !haveWinner) {
 		return;
 	}
 	
 	if (turn === GAMERS.x.mark && !haveWinner) {
 		currentCell.textContent = GAMERS.x.mark;
-		updateGameBoard(currentItemIdx, GAMERS.x.mark);
+		updateEMPLACEMENT(currentItemIdx, GAMERS.x.mark);
 		setTimeout(cpuTurn, 400); // attendre 4s00ms avant de lancer l'ordinateur
 	} else if (turn === GAMERS.o.mark && !haveWinner) {
 		currentCell.textContent = GAMERS.o.mark;
-		updateGameBoard(currentItemIdx, GAMERS.o.mark);
+		updateEMPLACEMENT(currentItemIdx, GAMERS.o.mark);
 		switchTurn(turn);
 	}
 	
@@ -152,8 +154,8 @@ function hasWinner() {
 	let hasWinner = false;
 	for (const conditions of winningConditionIdx) {
 		const a = EMPLACEMENT[conditions[0]];
-		const b = EMPLACEMEN[conditions[1]];
-		const c = EMPLACEMEN[conditions[2]];
+		const b = EMPLACEMENT[conditions[1]];
+		const c = EMPLACEMENT[conditions[2]];
 		
 		if (a === '' || b === '' || c === '') {
 			continue;
@@ -239,7 +241,7 @@ function reset() {
  */
 function resetIfNoOneWin() {
 	if (!hasWinner() && !hasEmptyCell()) {
-		const resetConfirmation = confirm("oN RECOMMENCE DE JOUER?")
+		const resetConfirmation = confirm("ON RECOMMENCE DE JOUER?")
 		reset();
 	}
 }
